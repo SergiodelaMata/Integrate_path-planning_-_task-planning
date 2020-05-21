@@ -28,12 +28,15 @@ __version__ = "0.0.1"
 
 
 import path_planning as pp
+import math
 
 def manhattan(point,point2):
     """
         Function that performs Manhattan heuristic.
     """
-    return 0
+    diference_posx = abs(point2.grid_point[0] - point.grid_point[0]) "Absolute value of the difference from the x grid reference of points"
+    diference_posy = abs(point2.grid_point[1] - point.grid_point[1]) "Absolute value of the difference from the y grid reference of points"
+    return diference_posx + diference_posy "Return the addition of the two absolute differences"
 
 pp.register_heuristic('manhattan', manhattan)
 
@@ -41,6 +44,7 @@ def naive(point, point2):
     """
         Function that performs a naive heuristic.
     """
+    
     return 1
 
 pp.register_heuristic('naive', naive)
@@ -49,6 +53,16 @@ def euclidean(point, point2):
     """
         Function that performs euclidean heuristic.
     """
-    return 25
+    diference_posx = (point2.grid_point[0] - point.grid_point[0])**2 "Square value of the difference from the x grid reference of points"
+    diference_posy = (point2.grid_point[1] - point.grid_point[1])**2 "Square value of the difference from the y grid reference of points"
+    return math.sqrt(diference_posx + diference_posy) "Return the square root of the additions of the square differences"
 
 pp.register_heuristic('euclidean', euclidean)
+
+def octile(point, point2):
+    """
+        Function that performs octile heuristic.
+    """
+    
+    return 25
+pp.register_heuristic('octile', octile)
