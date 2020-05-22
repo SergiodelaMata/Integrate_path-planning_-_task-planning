@@ -34,9 +34,12 @@ def manhattan(point,point2):
     """
         Function that performs Manhattan heuristic.
     """
-    diference_posx = abs(point2.grid_point[0] - point.grid_point[0]) "Absolute value of the difference from the x grid reference of points"
-    diference_posy = abs(point2.grid_point[1] - point.grid_point[1]) "Absolute value of the difference from the y grid reference of points"
-    return diference_posx + diference_posy "Return the addition of the two absolute differences"
+    #Absolute value of the difference from the x grid reference of points
+    diference_posx = abs(point2.grid_point[0] - point.grid_point[0])
+    #Absolute value of the difference from the y grid reference of points
+    diference_posy = abs(point2.grid_point[1] - point.grid_point[1])
+    #Return the addition of the two absolute differences
+    return diference_posx + diference_posy 
 
 pp.register_heuristic('manhattan', manhattan)
 
@@ -53,9 +56,12 @@ def euclidean(point, point2):
     """
         Function that performs euclidean heuristic.
     """
-    square_diference_posx = (point2.grid_point[0] - point.grid_point[0])**2 "Square value of the difference from the x grid reference of points"
-    square_diference_posy = (point2.grid_point[1] - point.grid_point[1])**2 "Square value of the difference from the y grid reference of points"
-    return math.sqrt(square_diference_posx + square_diference_posy) "Return the square root of the additions of the square differences"
+    #Square value of the difference from the x grid reference of points
+    square_diference_posx = (point2.grid_point[0] - point.grid_point[0])**2 
+    #Square value of the difference from the y grid reference of points
+    square_diference_posy = (point2.grid_point[1] - point.grid_point[1])**2
+    #Return the square root of the additions of the square differences
+    return math.sqrt(square_diference_posx + square_diference_posy)
 
 pp.register_heuristic('euclidean', euclidean)
 
@@ -63,9 +69,11 @@ def octile(point, point2):
     """
         Function that performs octile heuristic.
     """
-    diference_posx = abs(point2.grid_point[0] - point.grid_point[0]) "Absolute value of the difference from the x grid reference of points"
-    diference_posy = abs(point2.grid_point[1] - point.grid_point[1]) "Absolute value of the difference from the y grid reference of points"
-    "Return the estimation of the distance between two positions taking into account rows, columns and diagonals"
-    "1.414 is the constant which will be used if the two positions can be measured with a diagonal in the grid"
+    #Absolute value of the difference from the x grid reference of points
+    diference_posx = abs(point2.grid_point[0] - point.grid_point[0])
+    #Absolute value of the difference from the y grid reference of points
+    diference_posy = abs(point2.grid_point[1] - point.grid_point[1]) 
+    #Return the estimation of the distance between two positions taking into account rows, columns and diagonals
+    #1.414 is the constant which will be used if the two positions can be measured with a diagonal in the grid
     return 1.414 * min(diference_posx, diference_posy) + abs(diference_posx - diference_posy) 
 pp.register_heuristic('octile', octile)
