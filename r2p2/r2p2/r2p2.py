@@ -31,7 +31,7 @@ __version__ = "1.0.0b"
 
 import utils as u
     
-def start_simulation(config='../conf/scenario-default.json'):
+def start_simulation(config='../conf/scenario-exercise8.json'):
     """
         Launches a simulation using the given configuration file.
         Inputs:
