@@ -11,7 +11,7 @@
 				  [296, 362], [291, 259], [90, 85],
 				  [132, 305], [91, 308]],
 	"algorithm": "A*",
-	"heuristic": "naive",
+	"heuristic": "manhattan",
 	"start": [6, 6],
 	"goal": [32, 34]
 }
