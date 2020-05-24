@@ -309,4 +309,32 @@ class PDDL_Executor(Sequential_PID_Controller):
         self.robot = r
         self.robot.x = self._robot_x * u.npdata.shape[0]/40
         self.robot.y = self._robot_y * u.npdata.shape[1]/40
-        
+
+    def calculate_path(src, dst):
+        step = 40
+        shape = u.npdata.shape
+        step_x = shape[0]/step
+        step_y = shape[1]/step
+        # Add algo='algo name' and heur='heur name' to the parameters for run_path_planning
+        # in order to modify the behavior of the path planning part of the execution.
+        return pp.run_path_planning(step,
+                                        start=(int(src[0]/step_x), int(src[1]/step_y)),
+                                        finish=(int(dst[0]), int(dst[1])), algo='A*', heur='naive',
+                                        show_grid=True)
+
+    # Function in charge of parsing. Copy, paste, pass the path to the source text file
+    # and store the return value into a variable. You can then parse the result of move,
+    # stored in the list along with its destination, and run path planning. Bear in mind:
+    # you should keep a reference to the agent's location at any given time.
+    def generate_task_list(filepath):
+        tasks = []
+        for line in open(filepath):
+            if re.match(r'^\(\w(\w|_)*(\ *(\w(\w|_)*)?)*\)', re.sub(r"(\d(\.|\d)*: ) *", "", line)):
+                split_line = re.sub(r"(\d(\.|\d)*: ) *", "", line).split()
+                tasks.append(split_line[0].replace('(', '').replace(')', ''))
+                if tasks[-1].lower() == 'move':
+                    coords = split_line[3].replace('p', '').replace(')', '')
+                    tasks[-1] = (tasks[-1], (int(coords[:2]), int(coords[2:])))
+        print("TASKS:")
+        print(tasks)
+        return tasks
