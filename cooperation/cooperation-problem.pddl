@@ -2,10 +2,8 @@
 	(:domain cooperation)
 	(:objects
 		dock1 - dock
-		;x_1 x_5 x_6 x_10 x_16 - coordX ;; Coordenadas x siendo x_1 => x = 1; x_5 => x = 5; ...
-		;y_1 y_2 y_9 y_10 y_13 - coordY ;; Coordenadas y siendo y_1 => y = 1; y_2 => y = 2; ...
 
-        P0610 P0101 P1002 P0509 P1613 - point
+        P0610 P0101 P1002 P0509 P3013 - point
 		;; Tipos de vehículos no tripulados
 		Leader - ugv 
 		Follower0 - uav
@@ -37,34 +35,35 @@
 		(= (distance P0101 P0509) 9)
 		(= (distance P0101 P0610) 10)
 		(= (distance P0101 P1002) 9)
-		(= (distance P0101 P1613) 19)
+		(= (distance P0101 P3013) 19)
 		
 		(= (distance P0509 P0101) 9)
 		(= (distance P0509 P0610) 1)
 		(= (distance P0509 P1002) 9)
-		(= (distance P0509 P1613) 12)
+		(= (distance P0509 P3013) 22)
 		
 		(= (distance P0610 P0101) 10)
 		(= (distance P0610 P0509) 9)
 		(= (distance P0610 P1002) 9)
-		(= (distance P0610 P1613) 10)
+		(= (distance P0610 P3013) 20)
 		
 		(= (distance P1002 P0101) 9)
 		(= (distance P1002 P0509) 9)
 		(= (distance P1002 P0610) 9)
-		(= (distance P1002 P1613) 12)
+		(= (distance P1002 P3013) 12)
 		
-		(= (distance P1613 P0101) 19)
-		(= (distance P1613 P0509) 11)
-		(= (distance P1613 P0610) 10)
-		(= (distance P1613 P1002) 12)
+		(= (distance P3013 P0101) 23)
+		(= (distance P3013 P0509) 22)
+		(= (distance P3013 P0610) 20)
+		(= (distance P3013 P1002) 12)
 	)
 	(:goal
 	;; El vehículo Leader toma una fotografía en las coordenadas x = 5 y y = 9 y las horientaciones pan = 0º y tilt = 0º y
 	;; El vehículo Leader toma una fotografía en las coordenadas x = 16 y y = 13 y las horientaciones pan = 0º y tilt = 0º
 		(and
 			(is-taken-picture Leader P0509 P_0 T_0)
-			(is-taken-picture Follower0 P1613 P_0 T_0)
+			(is-taken-picture Leader P3013 P_45 T_315)
+			(is-taken-picture Leader P1002 P_90 T_90)
 		)
 	)
 	(:constraints
