@@ -207,6 +207,9 @@ class PDDL_Executor(Sequential_PID_Controller):
         return self.goal
 
     def __calculate_path(self, dst):
+        """
+            Calculates the path that there is between through each of the steps of planning.txt file until it is made the last step. 
+        """
         step = 40
         shape = u.npdata.shape
         step_x = shape[0]/step
@@ -235,6 +238,12 @@ class PDDL_Executor(Sequential_PID_Controller):
         return 0, 0
 
     def __generate_task_list(self, filepath):
+        """
+            Generate the list of tasks to be made which are represented to shown as an interaction at screen at the program like,
+            take_picture (showing 'take_picture' at screen next to were the picture is taken) and move (making the movement of the robot
+            which simulates to the autonomous vehicle).
+            
+        """
         tasks = []
         first_move = True
         for line in open(filepath):
