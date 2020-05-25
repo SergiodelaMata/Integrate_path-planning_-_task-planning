@@ -9,6 +9,6 @@ Actualmente es un repositorio privado, de manera que se necesita aceptar la soli
 La práctica contiene dos carpetas y un archivo .pdf.
 La carpeta r2p2 contiene todo lo relacionado con el robot y representación y elaboración de los algoritmos y heurísticas.
 La carpeta cooperation contiene el dominio y el problema de pddl del ejercicio "cooperation" de la práctica 2, pero con ciertas modificaciones
-en relación a la práctica y las exigencias de la misma.
+en relación a la práctica y las exigencias de la misma. Para ejecutarlo, se debe hacer uso del planificador optic-clp.
 El archivo pdf contiene las respuestas a las preguntas proporcionadas en la práctica junto con algunas explicaciones sobre la acciones realizadas
 en la práctica.
