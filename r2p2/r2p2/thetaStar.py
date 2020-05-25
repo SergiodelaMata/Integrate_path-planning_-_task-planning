@@ -72,48 +72,82 @@ def children(point,grid):
     return [link for link in links if link.value != 9]
 
 def checkObst(x, y, grid):
+     """
+        Verify if there is any obstacle at the position studied.
+        Inputs:
+            - x: X coordinate from the position studied.
+            - y: Y coordinate from the position studied.
+            - grid: grid over which to execute the algorithm.
+        Outputs:
+            - boolean indicating if there is an obtacle in a position of the grid.
+     """
      return (grid[int(x)][int(y)].value >= 5)
 
 def lineOfSight(current, node, grid):
+     """
+        Know if there is a path between the current point studied and another.
+        Inputs:
+            - current: point studied.
+            - node: node that needs to be reached.
+            - grid: grid over which to execute the algorithm.
+            Unused, kept to standarize input.
+        Outputs:
+            - boolean indicating if it is was found a path.
+    """
+     #Sepation from the coordinates from each of the nodes
      x0, y0 = current.grid_point
      x1, y1 = node.grid_point
+     #Difference between the x coordinates and y coordinates
      difference_posx = x1 - x0
      difference_posy = y1 - y0
      f = 0
+     #Verify if the difference from y coordinates is lower than 0
      if difference_posy < 0:
           difference_posy = - difference_posy
           s_posy = -1
      else:
           s_posy = 1
+     #Verify if the difference from x coordinates is lower than 0
      if difference_posx < 0:
           difference_posx = - difference_posx
           s_posx = -1
      else:
           s_posx = 1
+     #Compare the differences from x and y coordinates to study according to the greatest
      if difference_posx >= difference_posy:
+          #Make the study until the x values are equal
           while x0 != x1:
+               #Add to the f variable the difference from the y coordinates 
                f += difference_posy
+               #Add to the f variable the difference from the x coordinates 
                if f >= difference_posx:
                     if checkObst(x0 + ((s_posx - 1)/2), y0 + ((s_posy - 1)/2), grid):
                          return False
                     y0 = y0 + s_posy
                     f -= difference_posx
+               #Verify if f variable is different to 0 and there is any obtascle near the position studied 
                if (f != 0) and (checkObst(x0 + ((s_posx - 1)/2), y0 + ((s_posy - 1)/2), grid)):
                     return False
+               #Verify if the difference from y coodinates is 0 and check if there are obstables in relation to the initial y coordinate
                if (difference_posy == 0) and (checkObst(x0 + ((s_posx - 1)/2), y0,grid)) and (checkObst(x0 + ((s_posx - 1)/2), y0 - 1, grid)):
                     return False
                x0 += s_posx
      else:
+          #Make the study until the y values are equal
           while y0 != y1:
+               #Add to the f variable the difference from the x coordinates 
                f += difference_posx
+               #Add to the f variable the difference from the y coordinates 
                if f >= difference_posy:
                     if checkObst(x0 + ((s_posx - 1)/2), y0 + ((s_posy - 1)/2), grid):
                          return False
                     x0 = x0 + s_posx
                     f -= difference_posx
+               #Verify if f variable is different to 0 and there is any obtascle near the position studied 
                if (f != 0) and (checkObst(x0 + ((s_posx - 1)/2), y0 + ((s_posy - 1)/2), grid)):
                     return False
-               if (difference_posy == 0) and (checkObst(x0 + ((s_posx - 1)/2), y0, grid)) and (checkObst(x0 + ((s_posx - 1)/2), y0 - 1, grid)):
+               #Verify if the difference from x coodinates is 0 and check if there are obstables in relation to the initial x coordinate
+               if (difference_posx == 0) and (checkObst(x0, y0 + ((s_posy - 1)/2), grid)) and (checkObst(x0 - 1, y0 + ((s_posy - 1)/2), grid)):
                     return False
                y0 += s_posy
      return True
@@ -124,7 +158,7 @@ def thetaStar(start, goal, grid, heur='naive'):
         Inputs:
             - origin: node at which to start.
             - goal: node that needs to be reached.
-            - grid: grid over which to execute the algorithm
+            - grid: grid over which to execute the algorithm.
             - heur: reference to a string representing an heuristic.
             Unused, kept to standarize input.
         Outputs:
@@ -172,6 +206,8 @@ def thetaStar(start, goal, grid, heur='naive'):
                          node.parent = current
                else:
                     if (current.parent != None) and (lineOfSight(current.parent, node,grid)):
+                         #Consider the case in which the current point studied has a parent 
+                         # and that there is a path between start vertex and parent vertex   
                          node.G = current.parent.G + current.parent.move_cost(node)
                          node.H = pp.heuristic[heur](node, goal)
                          node.parent = current.parent
